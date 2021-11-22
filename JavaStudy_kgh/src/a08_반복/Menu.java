@@ -1,0 +1,54 @@
+package a08_반복;
+
+import java.util.Scanner;
+
+public class Menu {
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		
+		boolean loopFlag = true;
+		
+		String select = null;
+		
+		while(loopFlag) {
+		System.out.println("[프로그램 메뉴]");
+		System.out.println("1. 김준일 강사 폴더");
+		System.out.println("q. 프로그램 종료");
+		System.out.println("명령을 입력하세요 : ");
+		select = in.nextLine(); //문자열 입력
+		
+		if(select.equals("1"))/*문자열1비교할때는 equals사용*/ {
+			boolean loopFlag2=true;
+			while(loopFlag2) {
+				System.out.println("[1. 김준일 강사 폴더]");
+				System.out.println("1. javaStudy 폴더");
+				System.out.println("b. 뒤로가기");
+				System.out.println("q. 프로그램 종료");
+				System.out.println("명령을 입력하세요 : ");
+				select  = in.nextLine(); //문자열 입력
+				
+				if(select.equals("1")) {
+					System.out.println("1. javaStudy 폴더 open");
+				}else if(select.equals("b")) {
+					//이전 페이지로 이동
+					System.out.println("뒤로가기 실행");
+					loopFlag = false;
+				}else if(select.equals("q")) {
+					//프로그램 종료
+					System.out.println("프로그램 종료 중...");
+					loopFlag = false;
+					loopFlag2 = false;
+				}
+		}
+		
+		} else if(select.equals("q")) {
+			System.out.println("프로그램 종료 중...");
+			loopFlag=false;
+		} else {
+			System.out.println("실행할 수 없는 명령입니다.");
+		}
+	}
+		System.out.println("프로그램 종료.");
+	}
+}
