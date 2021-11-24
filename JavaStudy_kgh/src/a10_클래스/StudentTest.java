@@ -12,6 +12,9 @@ public class StudentTest {
 		Student s3 = new Student();
 		Student s4 = new Student();
 		
+		s1.studentGroup = 5;
+		
+		
 		s1.showInfo();
 		/*
 		System.out.println(s1);
