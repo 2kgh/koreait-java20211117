@@ -4,7 +4,7 @@ public class PowerButton implements Button{
 
 	@Override
 	public void 누름() {
-		System.out.println("전원을 켠다.");
+		System.out.println("전원 버튼을 누릅니다.");
 		
 	}
 
