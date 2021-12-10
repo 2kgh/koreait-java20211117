@@ -32,7 +32,14 @@ public class SubString {
 		String result = number.substring(0,number.length());
 		System.out.println(result);
 		
-		int index1 = data.indexOf(number);
+		int size = number.length();
+		for(int i=0;i<size;i++) {
+			result = number.substring(0,1);
+			number = number.substring(1);
+			System.out.println(result);
+		}
+		
+		
 		
 	}
 }
