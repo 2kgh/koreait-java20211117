@@ -11,6 +11,22 @@ public class UserServiceImpl implements UserService{
 		users = new User[userCount];
 	}
 	
+	public boolean nextOn() {
+		do {
+			System.out.println("계속 정보를 등록하시겠습니까?(y/n)");
+			String continueFlag = in.nextLine();
+			if(continueFlag.equals("n") || continueFlag.equals("N")) {
+				return false;//return을 만나면 함수를 완전히 빠져나오게 됨
+			}else if(continueFlag.equals("y") || continueFlag.equals("Y")) {
+				return true;
+			}else {
+				System.out.println("잘못된 명령입니다.");
+			}
+			}while(true);
+		
+	}
+	
+	
 	@Override
 	public void createUser() {
 		boolean loopFlag = true;
@@ -26,20 +42,7 @@ public class UserServiceImpl implements UserService{
 			System.out.println("이메일: ");
 			String email = in.nextLine();
 			
-			do {
-			System.out.println("계속 정보를 등록하시겠습니까?(y/n)");
-			String continueFlag = in.nextLine();
-			
-			if(continueFlag.equals("n") || continueFlag.equals("N")) {
-				loopFlag = false;
-				break;
-			}else if(continueFlag.equals("y") || continueFlag.equals("Y")) {
-				loopFlag = true;
-				break;
-			}else {
-				System.out.println("잘못된 명령입니다.");
-			}
-			}while(true);
+			loopFlag = nextOn();
 			
 			User user = new User();
 			
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService{
 				break;
 			}
 		}
-		users[index] = user;
+		users[index] = user;//비어있는 index에 넣어줌 그리고 다시 while(loopFlag)로 돌아가서 실행
 	}
 
 	@Override
@@ -93,7 +96,9 @@ public class UserServiceImpl implements UserService{
 		System.out.println("사용자 정보 검색");
 		System.out.print("찾고자하는 아이디 입력: ");
 		String searchId=in.nextLine();
+		
 		User user = getUser(searchId);
+		
 		if(user==null) {
 			System.out.println("해당 아이디의 사용자를 찾을 수 없습니다.");
 		}else {
