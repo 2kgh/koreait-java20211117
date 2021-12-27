@@ -1,4 +1,4 @@
-package a22_데이터베이스.domain.user;
+package a24_윈도우빌더.domain.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
