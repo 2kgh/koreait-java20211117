@@ -36,12 +36,13 @@ public class MainController extends JFrame {
 	
 	public MainController() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 885, 529);//창을 실현시키는 위치
+		setBounds(100, 100, 1013, 612);//창을 실현시키는 위치
 		mainPanel = new JPanel();
 		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		mainCard = new CardLayout(0,0);
 		mainPanel.setLayout(mainCard);
 		mainPanel.setSize(1000,600);
+		
 		setContentPane(mainPanel);
 		
 		JPanel welcomePanel = new WelcomePanel(mainPanel, mainCard);
@@ -50,14 +51,17 @@ public class MainController extends JFrame {
 		JPanel signinPanel = new SigninPanel(mainPanel, mainCard);
 		mainPanel.add(signinPanel, "signinPanel");
 		
-		JPanel signupPanel = new SignupPanel(mainPanel, mainCard);
-		mainPanel.add(signupPanel, "signupPanel");
+		SignupPanel signupPanel = SignupPanel.getInstance();
+		signupPanel.setCardLayout(mainPanel,mainCard);
+		mainPanel.add(signupPanel,"signupPanel");
 		
-		JPanel indexPanel = new IndexPanel(mainPanel, mainCard);
+		IndexPanel indexPanel = IndexPanel.getInstance();
+		indexPanel.setCardLayout(mainPanel,mainCard);
 		mainPanel.add(indexPanel, "indexPanel");
 		
-		JPanel accountPanel = new AccountsPanel(mainPanel, mainCard);
-		mainPanel.add(accountPanel, "accountPanel");
+		AccountsPanel accountstPanel = AccountsPanel.getInstance();
+		accountstPanel.setCardLayout(mainPanel, mainCard);
+		mainPanel.add(accountstPanel, "accountsPanel");
 		
 		JPanel panel = new JPanel();
 		mainPanel.add(panel, "name_9281028289600");
