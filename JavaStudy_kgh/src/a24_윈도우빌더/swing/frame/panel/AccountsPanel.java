@@ -1,24 +1,22 @@
 package a24_윈도우빌더.swing.frame.panel;
 
 import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import a24_윈도우빌더.service.AccountService;
 import a24_윈도우빌더.session.Principal;
 import a24_윈도우빌더.swing.dto.AccountsDto;
 import lombok.Data;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 @Data
 public class AccountsPanel extends JPanel {
@@ -151,12 +149,41 @@ public class AccountsPanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.","비밀번호 오류",JOptionPane.ERROR_MESSAGE);
 					return;
 				}else {
-					
+					boolean result = accountsService.updatePassword(passwordText.getText());
+					if(result == true) {
+						JOptionPane.showMessageDialog(null, "비밀번호가 정상적으로 변경되었습니다.","비밀번호 변경 완료",JOptionPane.PLAIN_MESSAGE);
+					}else {
+						JOptionPane.showMessageDialog(null, "비밀번호 변경 중 오류가 발생되었습니다.","비밀번호 변경 오류",JOptionPane.ERROR_MESSAGE);
+					}
+					passwordText.setText("");
+					rePasswordText.setText("");
+					mainCard.show(mainPanel,"indexPanel");
 				}
 			}
 		});
 		updatePasswordBtn.setBounds(666, 328, 191, 44);
 		add(updatePasswordBtn);
+		
+		JButton deleteUserBtn = new JButton("\uD68C\uC6D0\uD0C8\uD1F4");
+		deleteUserBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String originPassword = JOptionPane.showInputDialog(null,"기존의 비밀번호를 입력해 주세요.","비밀번호 인증",JOptionPane.INFORMATION_MESSAGE);
+				if(!originPassword.equals(principal.getUser().getPassword())) {
+					JOptionPane.showMessageDialog(null, "비밀번호 인증실패","비밀번호 오류",JOptionPane.ERROR_MESSAGE);
+					return;
+				}else {
+				boolean result = accountsService.deleteUser();
+				if(result == true) {
+					JOptionPane.showMessageDialog(null,"정상적으로 회원탈퇴가 이루어졌습니다.","회원 탈퇴 성공",JOptionPane.PLAIN_MESSAGE);
+					principal.setUser(null);
+					mainCard.show(mainPanel,"signinPanel");
+					}
+				}
+			}
+		});
+		deleteUserBtn.setBounds(689, 513, 168, 44);
+		add(deleteUserBtn);
 	}
 	
 	public static AccountsPanel getInstance() {

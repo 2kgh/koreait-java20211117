@@ -151,7 +151,44 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public int updatePasswordById(User user) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		int result = 0;
 		
-		return 0;
+		try {
+			con = pool.getConnection();
+			sql = "update user_mst set password = ? where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user.getPassword());
+			pstmt.setInt(2, user.getId());
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con,pstmt);
+		}
+		return result;
+	}
+
+	
+	public int deleteUserById(int id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		int result = 0;
+		
+		try {
+			con = pool.getConnection();
+			sql = "delete from user_mst where = ? where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con,pstmt);
+		}
+		return result;
 	}
 }
